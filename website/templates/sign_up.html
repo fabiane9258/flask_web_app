@@ -1,27 +1,27 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %}
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
 
-{% block content %}{% extends "base.html" %}
 {% block content %}
-    <h1>Sign Up</h1>
+    <h3 align="center">Sign Up</h3>
     <form method="POST">
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type="text" name="firstName" id="firstName" required>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password1">Password</label>
-            <input type="password" name="password1" id="password1" required>
+            <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password2">Confirm Password</label>
-            <input type="password" name="password2" id="password2" required>
+            <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password" required>
         </div>
 
-        <div id="pw-requirements">
+        <div id="pw-requirements" style="margin-top:1rem;">
             <p>Password must contain:</p>
             <ul>
                 <li id="req-length">at least 8 characters <span class="checkmark">✓</span></li>
@@ -33,7 +33,8 @@
             </ul>
         </div>
 
-        <button type="submit">Sign Up</button>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}
 
@@ -82,61 +83,4 @@ function updateRequirements() {
 
 pwField.addEventListener('input', updateRequirements);
 confirmPwField.addEventListener('input', updateRequirements);
-</script>
-<form method="POST">
-    <h3 align="center">Sign Up</h3>
-    <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-    </div>
-
-        <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
-    </div>
-
-        <div class="form-group">
-        <label for="password1">Password</label>
-        <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password">
-    </div>
-    <div>
-        <label for="password2">Confirm password</label>
-        <input type="password" name="password2" id="password2">
-    </div>
-
-        <div id="pw-requirements" style="margin-top:1rem;">
-        <p>Password must contain:</p>
-        <ul>
-            <li id="req-length">at least 8 characters</li>
-            <li id="req-upper">an uppercase letter</li>
-            <li id="req-lower">a lowercase letter</li>
-            <li id="req-digit">a digit</li>
-            <li id="req-special">a special character (!@#$%^&amp;*)</li>
-        </ul>
-    </div>
-
-    <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{% endblock %}
-
-<script>
-const pwField = document.getElementById('password1');
-const reqs = {
-    length: document.getElementById('req-length'),
-    upper: document.getElementById('req-upper'),
-    lower: document.getElementById('req-lower'),
-    digit: document.getElementById('req-digit'),
-    special: document.getElementById('req-special')
-};
-
-pwField.addEventListener('input', () => {
-    const v = pwField.value;
-    reqs.length.style.color = v.length >= 8 ? 'green' : 'red';
-    reqs.upper.style.color = /[A-Z]/.test(v) ? 'green' : 'red';
-    reqs.lower.style.color = /[a-z]/.test(v) ? 'green' : 'red';
-    reqs.digit.style.color = /\d/.test(v) ? 'green' : 'red';
-    reqs.special.style.color = /[!@#$%^&*(),.?":{}|<>]/.test(v)
-        ? 'green' : 'red';
-});
 </script>
