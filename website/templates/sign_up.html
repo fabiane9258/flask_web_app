@@ -17,14 +17,44 @@
         <label for="password1">Password</label>
         <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password">
     </div>
+    <div>
+        <label for="password2">Confirm password</label>
+        <input type="password" name="password2" id="password2">
+    </div>
 
-
-        <div class="form-group">
-        <label for="password2">Password (confirm)</label>
-        <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password">
+        <div id="pw-requirements" style="margin-top:1rem;">
+        <p>Password must contain:</p>
+        <ul>
+            <li id="req-length">at least 8 characters</li>
+            <li id="req-upper">an uppercase letter</li>
+            <li id="req-lower">a lowercase letter</li>
+            <li id="req-digit">a digit</li>
+            <li id="req-special">a special character (!@#$%^&amp;*)</li>
+        </ul>
     </div>
 
     <br>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% endblock %}
+
+<script>
+const pwField = document.getElementById('password1');
+const reqs = {
+    length: document.getElementById('req-length'),
+    upper: document.getElementById('req-upper'),
+    lower: document.getElementById('req-lower'),
+    digit: document.getElementById('req-digit'),
+    special: document.getElementById('req-special')
+};
+
+pwField.addEventListener('input', () => {
+    const v = pwField.value;
+    reqs.length.style.color = v.length >= 8 ? 'green' : 'red';
+    reqs.upper.style.color = /[A-Z]/.test(v) ? 'green' : 'red';
+    reqs.lower.style.color = /[a-z]/.test(v) ? 'green' : 'red';
+    reqs.digit.style.color = /\d/.test(v) ? 'green' : 'red';
+    reqs.special.style.color = /[!@#$%^&*(),.?":{}|<>]/.test(v)
+        ? 'green' : 'red';
+});
+</script>
