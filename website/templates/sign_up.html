@@ -1,6 +1,88 @@
 {% extends "base.html" %} {% block title %}Sign Up{% endblock %}
 
+{% block content %}{% extends "base.html" %}
 {% block content %}
+    <h1>Sign Up</h1>
+    <form method="POST">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" required>
+        </div>
+        <div>
+            <label for="password1">Password</label>
+            <input type="password" name="password1" id="password1" required>
+        </div>
+        <div>
+            <label for="password2">Confirm Password</label>
+            <input type="password" name="password2" id="password2" required>
+        </div>
+
+        <div id="pw-requirements">
+            <p>Password must contain:</p>
+            <ul>
+                <li id="req-length">at least 8 characters <span class="checkmark">✓</span></li>
+                <li id="req-upper">an uppercase letter <span class="checkmark">✓</span></li>
+                <li id="req-lower">a lowercase letter <span class="checkmark">✓</span></li>
+                <li id="req-digit">a digit <span class="checkmark">✓</span></li>
+                <li id="req-special">a special character (!@#$%^&amp;*()) <span class="checkmark">✓</span></li>
+                <li id="req-match">Passwords match <span class="checkmark">✓</span></li>
+            </ul>
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+{% endblock %}
+
+<style>
+.checkmark {
+    display: none;
+    color: green;
+    font-weight: bold;
+}
+.req-met .checkmark {
+    display: inline;
+}
+</style>
+
+<script>
+const pwField = document.getElementById('password1');
+const confirmPwField = document.getElementById('password2');
+const reqs = {
+    length: document.getElementById('req-length'),
+    upper: document.getElementById('req-upper'),
+    lower: document.getElementById('req-lower'),
+    digit: document.getElementById('req-digit'),
+    special: document.getElementById('req-special'),
+    match: document.getElementById('req-match')
+};
+
+function updateRequirements() {
+    const v = pwField.value;
+    const confirmV = confirmPwField.value;
+    
+    // Update each requirement
+    const lengthMet = v.length >= 8;
+    const upperMet = /[A-Z]/.test(v);
+    const lowerMet = /[a-z]/.test(v);
+    const digitMet = /\d/.test(v);
+    const specialMet = /[!@#$%^&*(),.?":{}|<>]/.test(v);
+    const matchMet = v === confirmV && v !== '';
+    
+    reqs.length.classList.toggle('req-met', lengthMet);
+    reqs.upper.classList.toggle('req-met', upperMet);
+    reqs.lower.classList.toggle('req-met', lowerMet);
+    reqs.digit.classList.toggle('req-met', digitMet);
+    reqs.special.classList.toggle('req-met', specialMet);
+    reqs.match.classList.toggle('req-met', matchMet);
+}
+
+pwField.addEventListener('input', updateRequirements);
+confirmPwField.addEventListener('input', updateRequirements);
+</script>
 <form method="POST">
     <h3 align="center">Sign Up</h3>
     <div class="form-group">
